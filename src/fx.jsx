@@ -77,7 +77,6 @@ export function SpotlightCard({ children, className = '', ...rest }) {
     if (!hover() || reduce()) return
     const el = ref.current, b = el.getBoundingClientRect()
     const x = (e.clientX - b.left) / b.width, y = (e.clientY - b.top) / b.height
-    el.style.setProperty('--mx', x * 100 + '%'); el.style.setProperty('--my', y * 100 + '%')
     gsap.to(el, { rotationY: (x - 0.5) * 8, rotationX: -(y - 0.5) * 8, transformPerspective: 800, duration: 0.4 })
   }
   const leave = () => gsap.to(ref.current, { rotationX: 0, rotationY: 0, duration: 0.6, ease: 'elastic.out(1,.6)' })

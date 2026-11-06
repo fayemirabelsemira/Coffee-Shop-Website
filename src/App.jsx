@@ -16,6 +16,14 @@ const MENU = [
   { name: 'Mixed Cookie Box', desc: 'Red velvet, matcha, chocolate chip and more in one box. Ask what’s available.', img: 'cookiebox.jpg', tag: 'boxes', price: '' },
 ]
 const CHIPS = [['all', 'All'], ['chocolate', 'Chocolate'], ['matcha', 'Matcha'], ['biscoff', 'Biscoff'], ['boxes', 'Gift boxes']]
+const I = {
+  cookie: <><circle cx="12" cy="12" r="9" /><path d="M17.6 4.6a2.6 2.6 0 0 0 2.8 2.8" /><circle className="c" cx="9" cy="9.5" r="1" /><circle className="c" cx="14" cy="8" r="1" /><circle className="c" cx="8.5" cy="14.5" r="1" /><circle className="c" cx="13.5" cy="14" r="1" /><circle className="c" cx="16" cy="12" r=".9" /></>,
+  form: <><rect x="5" y="4" width="14" height="17" rx="2" /><path d="M9 4h6v3H9z" /><path d="M8.5 12h7M8.5 16h4.5" /></>,
+  send: <><path d="M21 3 10 14" /><path d="M21 3l-6.5 18-4-7-7-4z" /></>,
+  heart: <path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.600-7 10-7 10z" />,
+  pin: <><path d="M12 21s-6-5.500-6-11a6 6 0 0 1 12 0c0 5.500-6 11-6 11z" /><circle cx="12" cy="10" r="2.200" /></>,
+}
+const Svg = ({ k, className }) => <svg className={className} viewBox="0 0 24 24" aria-hidden="true">{I[k]}</svg>
 const GALLERY = ['g1.jpg', 'g2.jpg', 'g3.jpg', 'g4.jpg', 'giftbox.jpg']
 // Edit quotes here. Get each customer’s OK before publishing their name.
 const REVIEWS = [
@@ -38,7 +46,7 @@ export default function App() {
   const [active, setActive] = useState('top')
   const total = qty.reduce((a, b) => a + b, 0)
   const say = (t) => { setToast(t); clearTimeout(window._t); window._t = setTimeout(() => setToast(''), 1900) }
-  const add = (i) => { setQty((a) => a.map((n, k) => (k === i ? n + 1 : n))); say('Added ' + MENU[i].name + ' 🍪') }
+  const add = (i) => { setQty((a) => a.map((n, k) => (k === i ? n + 1 : n))); say('Added ' + MENU[i].name) }
   const shown = useMemo(() => MENU.map((m, i) => ({ ...m, i })).filter((m) => (cat === 'all' || m.tag === cat) && m.name.toLowerCase().includes(q.trim().toLowerCase())), [cat, q])
   const message = useMemo(() => {
     const lines = qty.map((n, i) => (n > 0 ? `• ${n} × ${MENU[i].name}` : '')).filter(Boolean)
@@ -96,7 +104,7 @@ export default function App() {
       <div className="mock" role="note"><strong>CONCEPT MOCKUP</strong><span className="mt-l">Unofficial design concept. Not the official website of Fabulous Bakery / Fab Baker Boy.</span><span className="mt-s">Unofficial design concept. Not the official website.</span></div>
       <header>
         <nav className="nav" aria-label="Main">
-          <L id="top" className="brand"><Img s="logo.jpg" alt="Fab Bkr Boy logo" /><span><b>Fabulous Bakery</b><small>Home of Fab Baker Boy</small></span></L>
+          <L id="top" className="brand"><span className="logo-dot" aria-hidden="true"><Svg k="cookie" className="lsvg" /></span><span><b>Fabulous Bakery</b><small>Home of Fab Baker Boy</small></span></L>
           <div className={'links' + (menuOpen ? ' open' : '')} id="links">
             <L id="menu">Menu</L><L id="story">Our Story</L><L id="gallery">Gallery</L><L id="reviews">Reviews</L><L id="order">Order</L>
           </div>
@@ -118,11 +126,11 @@ export default function App() {
               <Magnet><L id="menu" className="btn">Explore our menu</L></Magnet>
             </div>
           </section>
-          <section className="card b-owner" aria-label="Meet the baker">
-            <h2>Meet Daddy O</h2>
-            <div className="ph"><Img s="story.jpg" alt="Daddy O, the baker behind Fab Bkr Boy" /></div>
-            <p>Baked fresh daily with his magic touch.</p>
-            <Magnet><L id="story" className="btn dark">Our story</L></Magnet>
+          <section className="card b-owner" aria-label="Sweet treats">
+            <h2>Sweet Treats</h2>
+            <div className="ph"><Img s="story.jpg" alt="Chocolate s’mores cookies" /></div>
+            <p>Soft, gooey cookies and crinkles, baked fresh daily.</p>
+            <Magnet><L id="menu" className="btn dark">See the menu</L></Magnet>
           </section>
           <section className="card b-fresh" aria-label="Fresh from the oven">
             <Img s="crumb.jpg" lazy /><div><h2>Fresh from the oven</h2><p>Soft, gooey and made with love.</p></div>
@@ -171,16 +179,15 @@ export default function App() {
             <SplitText tag="h2" className="sec-h" text="Homemade with heart" />
             <p>Welcome to the Fabulous Bakery, home of Fab Baker Boy. A sweet corner in Tagaytay where every cookie and crinkle tells a story of love, warmth and a sprinkle of fun.</p>
             <ul className="vals">
-              <li><span aria-hidden="true">🍪</span><div><b>Baked fresh daily</b><small>Made with Daddy O’s magic touch.</small></div></li>
-              <li><span aria-hidden="true">♥</span><div><b>Homemade. Heartmade.</b><small>Love, warmth and a sprinkle of fun in every batch.</small></div></li>
-              <li><span aria-hidden="true">📍</span><div><b>A sweet corner in Tagaytay</b><small>Order by Messenger or call 0922-8701977.</small></div></li>
+              <li><span aria-hidden="true"><Svg k="cookie" className="vsvg" /></span><div><b>Baked fresh daily</b><small>Made with Daddy O’s magic touch.</small></div></li>
+              <li><span aria-hidden="true"><Svg k="heart" className="vsvg" /></span><div><b>Homemade. Heartmade.</b><small>Love, warmth and a sprinkle of fun in every batch.</small></div></li>
+              <li><span aria-hidden="true"><Svg k="pin" className="vsvg" /></span><div><b>A sweet corner in Tagaytay</b><small>Order by Messenger or call 0922-8701977.</small></div></li>
             </ul>
             <Magnet><L id="order" className="btn">Order a box</L></Magnet>
           </div>
           <div className="collage">
-            <div className="main"><Img s="hero.jpg" alt="Inside the Fab Bkr Boy shop in Tagaytay" lazy /><span className="cap">Our little shop in Tagaytay</span></div>
-            <div className="mini-ph"><Img s="story.jpg" alt="Daddy O, the baker" lazy /></div>
-            <img className="fl fbbadge" src={P + 'fb-badge.png'} alt="4.7K Facebook followers" />
+            <div className="main"><Img s="hero.jpg" alt="Chocolate cookies with marshmallow and melted chocolate" lazy /><span className="cap">Fresh from our kitchen</span></div>
+            <div className="mini-ph"><Img s="story.jpg" alt="Chocolate s’mores cookies" lazy /></div>
           </div>
         </div></section>
 
@@ -192,7 +199,7 @@ export default function App() {
         </div></div></section>
 
         <section id="reviews" style={{ paddingTop: 20 }}><div className="wrap"><div className="tm">
-          <Img s="crinkles.jpg" lazy />
+          <Img s="reviews.jpg" lazy />
           <div className="left"><p className="eyebrow" style={{ color: 'var(--peach)' }}>Testimonials</p><h2>A shared love for cookies</h2><p>Hear from customers who’ve tried our crinkles and cookies.</p>
             <div className="arrows"><button aria-label="Previous review" onClick={() => setRi((ri + REVIEWS.length - 1) % REVIEWS.length)}>←</button><button aria-label="Next review" onClick={() => setRi((ri + 1) % REVIEWS.length)}>→</button></div></div>
           <figure className="note" aria-live="polite"><small>From:</small><cite>{review.name}</cite><q>{review.text}</q><em>Facebook customer message</em></figure>
@@ -203,7 +210,7 @@ export default function App() {
           <SplitText tag="h2" className="sec-h" text="Order in three easy steps" />
           <div className="steps">
             {[['Pick your treats', 'Add items from the menu or choose quantities below.'], ['Add your details', 'Name, pickup or delivery, date and notes.'], ['Send it', 'Text or message us your ready-made order.']].map(([t, d], i) => (
-              <div className="step" key={t}><b>{i + 1}</b><h3>{t}</h3><p>{d}</p></div>))}
+              <div className="step" key={t}><span className="stamp">{i + 1}</span><Svg k={['cookie', 'form', 'send'][i]} className="si" /><div><h3>{t}</h3><p>{d}</p></div></div>))}
           </div>
           <div className="form">
             <div>
@@ -234,7 +241,7 @@ export default function App() {
         <span className="disp">Fabulous Bakery</span>
         <p>Home of Fab Baker Boy · Homemade ♥ Heartmade · Tagaytay</p>
         <p style={{ marginTop: 8 }}><a href="tel:+639228701977">0922-8701977</a> · <a href="https://www.facebook.com/fabbkrboy" target="_blank" rel="noopener">Facebook: Fab Baker Boy</a></p>
-        <p className="legal"><strong>Disclaimer:</strong> This website is an unofficial concept mockup created for design demonstration only. It is not affiliated with, endorsed by, or operated by Fabulous Bakery / Fab Baker Boy. All business names, logos and photographs belong to their respective owners. Some images are stock or illustrative and do not show the bakery’s actual products. Prices, availability and reviews are placeholders until confirmed by the owner.</p>
+        <p className="legal"><strong>Disclaimer:</strong> This website is an unofficial concept mockup created for design demonstration only. It is not affiliated with, endorsed by, or operated by Fabulous Bakery / Fab Baker Boy. All business names, logos and photographs belong to their respective owners. Product photos are illustrative placeholder images and do not show the bakery’s actual products. Prices, availability and reviews are placeholders until confirmed by the owner.</p>
       </div></footer>
 
       <nav className="bn" aria-label="Quick navigation">
@@ -243,7 +250,7 @@ export default function App() {
         <L id="order" className={active === 'order' ? 'on' : ''}><svg viewBox="0 0 24 24"><path d="M6 6h15l-2 9H8zM6 6L5 3H2" /><circle cx="9" cy="20" r="1" /><circle cx="18" cy="20" r="1" /></svg>{total > 0 && <span className="cb" style={{ display: 'block' }}>{total}</span>}Cart</L>
         <a href="tel:+639228701977"><svg viewBox="0 0 24 24"><path d="M5 4h4l2 5-2.5 1.5a11 11 0 0 0 5 5L15 13l5 2v4a2 2 0 0 1-2 2A16 16 0 0 1 3 6a2 2 0 0 1 2-2z" /></svg>Call</a>
       </nav>
-      <a id="bar" className={total > 0 ? 'on' : ''} href="#order" onClick={(e) => jump(e, 'order')}>🛒 <span>{total}</span> in your order · Review →</a>
+      <a id="bar" className={total > 0 ? 'on' : ''} href="#order" onClick={(e) => jump(e, 'order')}><span className="cnt">{total}</span> in your order · Review →</a>
       <div id="toast" className={toast ? 'on' : ''} role="status">{toast}</div>
     </div>
   )

@@ -451,3 +451,43 @@ header{background:var(--cream);padding-bottom:8px}
  .mini-ph{width:88px;border-width:3px}
  .collage .cap{max-width:52%}
 }
+
+.logo-dot{width:44px;height:44px;border-radius:50%;background:var(--brown);display:grid;place-items:center;font-size:1.4rem;flex:none}
+@media(max-width:640px){.logo-dot{width:32px;height:32px;font-size:1.05rem}}
+
+/* no cursor glow; new colour for the second bento card */
+.sc::after{content:none!important;display:none!important}
+.b-owner{background:var(--tan)!important;color:var(--brown)}
+.b-owner h2,.b-owner p{color:var(--brown)}
+.b-owner .ph{border-color:var(--cream)}
+
+/* ===== hand-made details instead of emoji / generic cards ===== */
+.pick .mini,.pick .mini:hover,.pick .mini:active{background:transparent!important;border:0;box-shadow:none!important}
+.lsvg{width:62%;height:62%;stroke:var(--cream);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.lsvg .c{fill:var(--cream);stroke:none}
+.vsvg{width:22px;height:22px;stroke:var(--tan);fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.vsvg .c{fill:var(--tan);stroke:none}
+.cnt{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:12px;background:var(--tan);color:var(--brown);margin-right:6px;font-size:.85rem}
+.steps{gap:22px 18px}
+.step{position:relative;display:flex;flex-direction:column;align-items:flex-start;gap:10px;background:#fff;border:1.5px dashed #c9a67f;border-radius:14px;box-shadow:4px 4px 0 var(--line);padding:24px 20px 18px;text-align:left}
+.step:nth-child(1){transform:rotate(.5deg)}.step:nth-child(2){transform:rotate(-.6deg)}.step:nth-child(3){transform:rotate(.4deg)}
+.step .stamp{position:absolute;top:-13px;left:16px;width:28px;height:28px;display:grid;place-items:center;border-radius:50%;background:var(--brown);color:var(--cream);font-weight:800;font-size:.85rem;border:2px solid var(--ivory)}
+.step .si{width:36px;height:36px;stroke:var(--orange);fill:none;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.step .si .c{fill:var(--orange);stroke:none}
+.step h3{font-size:1.1rem;color:var(--cookie)}.step p{color:var(--muted);font-size:.92rem;margin-top:2px}
+/* testimonial note: a little see-through */
+.note{background:rgba(255,248,238,.82);-webkit-backdrop-filter:blur(8px);backdrop-filter:blur(8px);border:1px solid rgba(255,255,255,.45)}
+.arrows button:focus:not(:focus-visible){outline:none}
+@media(max-width:640px){
+ .steps{gap:14px 8px;margin:16px 0 10px}
+ .step{display:flex;flex-direction:column;align-items:flex-start;gap:4px;padding:16px 10px 10px;box-shadow:3px 3px 0 var(--line);border-radius:12px}
+ .step .stamp{top:-11px;left:10px;width:22px;height:22px;font-size:.7rem}
+ .step .si{width:24px;height:24px}
+ .step h3{font-size:.74rem;line-height:1.2}.step p{display:none}
+ .note::before{right:auto;left:20px}
+}
+
+/* fix: the Top picks photo rule (.pick img) was also painting a peach square behind the plus icon */
+.pick .mini .plus{position:static!important;inset:auto!important;width:44px!important;height:44px!important;background:none!important;border-radius:50%!important;object-fit:contain}
+.pick .mini:focus:not(:focus-visible){outline:none}
+.pick .mini:focus-visible{outline:2px solid var(--cream);outline-offset:1px;border-radius:50%}
